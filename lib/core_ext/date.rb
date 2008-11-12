@@ -1,4 +1,4 @@
-::Date.class_eval do
+class Date
   def to_formatted_s(format = :default)
     formats = ::Date::DATE_FORMATS
     formatter = formats[format]

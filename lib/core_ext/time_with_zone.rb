@@ -1,4 +1,4 @@
-ActiveSupport::TimeWithZone.class_eval do
+class ActiveSupport::TimeWithZone
   def to_s(format = :default)
     return utc.to_s(format) if format == :db
     formats = ::Time::DATE_FORMATS

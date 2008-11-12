@@ -1,4 +1,4 @@
-::Time.class_eval do
+class Time
   def to_formatted_s(format = :default)
     formats = ::Time::DATE_FORMATS
     formatter = formats[format]
