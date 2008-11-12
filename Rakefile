@@ -9,8 +9,8 @@ Rake::TestTask.new do |t|
 end
 
 Rake::RDocTask.new do |d|
-  d.rdoc_dir = 'doc'
-  d.options = %w(-S -N -c UTF-8)
-  d.main    = "README.rdoc"
-  d.rdoc_files.include(d.main, "lib/**/*.rb")
+  d.rdoc_dir  = 'doc'
+  d.options   = %w(--inline-source --line-numbers --charset UTF-8)
+  d.main      = 'README.rdoc'
+  d.rdoc_files.include(d.main, 'lib/**/*.rb')
 end
