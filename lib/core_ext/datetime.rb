@@ -1,13 +1,14 @@
 class DateTime < Date
   def to_formatted_s(format=:default)
-    formatter = Time::DATE_FORMATS.fetch(format) do
+    translated = begin
       default_formatters = I18n.translate(:'time.formats', :raise => true) rescue {}
-      datetime_formatters = I18n.translate(:'time.datetime.formats', :raise => true) rescue {}
-      default_formatters.merge(datetime_formatters)[format]
+      twz_formatters = I18n.translate(:'time.datetime.formats', :raise => true) rescue {}
+      default_formatters.merge(twz_formatters)[format]
     end
-    format_to_localize = formatter.respond_to?(:call) ? formatter.call(self) : formatter
+    format = translated || Time::FORMATS[format]
+    format = format.call(self) if format.respond_to? :call
     
-    I18n.localize(self, :format => format_to_localize)
+    I18n.localize(self, :format => format)
   end
   alias_method :to_s, :to_formatted_s
 end
