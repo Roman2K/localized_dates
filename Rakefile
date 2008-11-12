@@ -1,15 +1,16 @@
-require 'spec/rake/spectask'
+require 'rake/testtask'
+require 'rake/rdoctask'
 
-desc "Default: run specs"
-task :default => :spec
+desc "Default: run tests"
+task :default => :test
 
-desc "Run the specs"
-Spec::Rake::SpecTask.new(:spec) do |t|
-  t.spec_opts = ['--colour --format progress --loadby mtime --reverse']
-  t.spec_files = FileList['spec/**/*_spec.rb']
+Rake::TestTask.new do |t|
+  t.test_files = FileList['test/**/*_test.rb']
 end
 
-desc "Generate RDoc documentation"
-task :rdoc do
-  system("rm -rf doc && rdoc -S -N -m README -c UTF-8 README lib && open doc/index.html")
+Rake::RDocTask.new do |d|
+  d.rdoc_dir = 'doc'
+  d.options = %w(-S -N -c UTF-8)
+  d.main    = "README.rdoc"
+  d.rdoc_files.include(d.main, "lib/**/*.rb")
 end

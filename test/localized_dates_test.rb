@@ -21,7 +21,7 @@ class LocalizedDatesTest < Test::Unit::TestCase
       translations[:time] = {:formats => {FORMAT => STOCK}, :datetime => {:formats => {FORMAT => TRANSLATED}}}
     end
     
-    # Falls back to time.formats
+    # Defaults to time.formats
     assert_localized(DateTime.now, Time::FORMATS) do |translations|
       translations[:time] = {:formats => {FORMAT => TRANSLATED}}
     end
@@ -45,7 +45,7 @@ class LocalizedDatesTest < Test::Unit::TestCase
       translations[:time] = {:formats => {FORMAT => STOCK}, :time_with_zone => {:formats => {FORMAT => TRANSLATED}}}
     end
     
-    # Falls back to time.formats
+    # Defaults to time.formats
     assert_localized(time, Time::FORMATS) do |translations|
       translations[:time] = {:formats => {FORMAT => TRANSLATED}}
     end
@@ -53,22 +53,22 @@ class LocalizedDatesTest < Test::Unit::TestCase
   
 private
 
-  def assert_localized(object, defaults)
-    # Translated format supersedes default format
+  def assert_localized(object, stock)
+    # Translated format supersedes stock format
     yield localized = {}
-    setup_format_entries(defaults, localized) do
+    setup_format_entries(stock, localized) do
       I18n.expects(:localize).with(object, :format => TRANSLATED).returns "result"
       assert_equal "result", object.to_s(FORMAT)
     end
     
-    # Falls back to default format
-    setup_format_entries(defaults) do
+    # Defaults to stock format
+    setup_format_entries(stock) do
       I18n.expects(:localize).with(object, :format => STOCK).returns "result"
       assert_equal "result", object.to_s(FORMAT)
     end
   end
   
-  def setup_format_entries(defaults, localized={})
+  def setup_format_entries(stock, localized={})
     # Translations
     old_translations = I18n.backend.instance_eval('@translations').dup rescue nil
     I18n.backend.store_translations(:en, localized)
@@ -76,13 +76,13 @@ private
       # Locale
       old_locale, I18n.locale = I18n.locale, :en
       begin
-        # Defaults
-        old_defaults = defaults.dup
-        defaults.replace({FORMAT => STOCK})
+        # Stock formats
+        old_stock = stock.dup
+        stock.replace({FORMAT => STOCK})
         begin
           return yield
         ensure
-          defaults.replace(old_defaults)
+          stock.replace(old_stock)
         end
       ensure
         I18n.locale = old_locale
