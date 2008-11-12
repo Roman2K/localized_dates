@@ -11,7 +11,7 @@ To install the plugin, change into an existing Rails application and run:
 
   ruby script/plugin install git://github.com/Roman2K/localized_dates.git
 
-This will download the plugin and store it in vendor/plugins/localized_dates.
+This will download the plugin and store it in <tt>vendor/plugins/localized_dates</tt>.
 
 
 === Adding new formats
@@ -38,12 +38,12 @@ Adding new date and time formats is easy. Basic structure:
         am: 'am'
         pm: 'pm'
 
-As you can see, there are two basic entities: +date+ and +time+. time also has
+As you can see, there are two basic entities: +date+ and +time+. +time+ also has
 two children, +datetime+ and +time_with_zone+ that both inherit from +time+ so
 you usually don't even need to define them.
 
 If you need more complex Ruby constructs such as lambdas, you still need to
-define them in a separate Ruby file. Take a look at the following formats:
+define them in a separate Ruby file. Take a look at the following example:
 
   {
     :'en-US' => {
@@ -119,7 +119,7 @@ Also note that the definition of day names starts with Sunday (not Monday).
 
 === Bugs, feedback and licence
 
-If you discover any bugs or have positive feedback, Clemens Kofler would
+If you discover a bug or have positive feedback, Clemens Kofler would
 appreciate if you sent him an e-mail to clemens@railway.at. Please include a
 detailed description of your problem if you want him to help you.
 

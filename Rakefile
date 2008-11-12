@@ -1,6 +1,6 @@
 require 'spec/rake/spectask'
 
-desc "Default: run specs."
+desc "Default: run specs"
 task :default => :spec
 
 desc "Run the specs"
