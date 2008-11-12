@@ -55,8 +55,8 @@ private
 
   def assert_localized(object, stock)
     # Translated format supersedes stock format
-    yield localized = {}
-    setup_format_entries(stock, localized) do
+    yield translations = {}
+    setup_format_entries(stock, translations) do
       I18n.expects(:localize).with(object, :format => TRANSLATED).returns "result"
       assert_equal "result", object.to_s(FORMAT)
     end
@@ -68,10 +68,10 @@ private
     end
   end
   
-  def setup_format_entries(stock, localized={})
+  def setup_format_entries(stock, translations={})
     # Translations
     old_translations = I18n.backend.instance_eval('@translations').dup rescue nil
-    I18n.backend.store_translations(:en, localized)
+    I18n.backend.store_translations(:en, translations)
     begin
       # Locale
       old_locale, I18n.locale = I18n.locale, :en
