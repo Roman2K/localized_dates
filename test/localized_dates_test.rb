@@ -16,7 +16,7 @@ class LocalizedDatesTest < Test::Unit::TestCase
   end
   
   def test_datetime
-    # time.datetime.formats supersedes time.formats
+    # time.datetime.formats takes precedence over time.formats
     assert_localized(DateTime.now, Time::FORMATS) do |translations|
       translations[:time] = {:formats => {FORMAT => STOCK}, :datetime => {:formats => {FORMAT => TRANSLATED}}}
     end
@@ -40,7 +40,7 @@ class LocalizedDatesTest < Test::Unit::TestCase
     time.utc.expects(:to_s).with(:db).returns "result"
     assert_equal "result", time.to_s(:db)
     
-    # time.time_with_zone.formats supersedes time.formats
+    # time.time_with_zone.formats takes precedence over time.formats
     assert_localized(time, Time::FORMATS) do |translations|
       translations[:time] = {:formats => {FORMAT => STOCK}, :time_with_zone => {:formats => {FORMAT => TRANSLATED}}}
     end
@@ -54,7 +54,7 @@ class LocalizedDatesTest < Test::Unit::TestCase
 private
 
   def assert_localized(object, stock)
-    # Translated format supersedes stock format
+    # Translated format takes precedence over stock format
     yield translations = {}
     setup_format_entries(stock, translations) do
       I18n.expects(:localize).with(object, :format => TRANSLATED).returns "result"
