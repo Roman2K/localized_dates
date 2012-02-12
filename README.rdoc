@@ -114,7 +114,7 @@ Also note that the definition of day names starts with Sunday (not Monday).
 
 * Clemens Kofler    (http://www.railway.at)
 * Aslak Hellesøy    (http://blog.aslakhellesoy.com/)
-* Roman Le Négrate  (http://roman.flucti.com)
+* Roman Le Négrate
 
 
 === Bugs, feedback and license
