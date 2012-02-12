@@ -9,7 +9,7 @@ to facilitate localization of dates and times.
 
 To install the plugin, change into an existing Rails application and run:
 
-  ruby script/plugin install git://github.com/Roman2K/localized_dates.git
+  ruby script/plugin install <repo>
 
 This will download the plugin and store it in <tt>vendor/plugins/localized_dates</tt>.
 
